@@ -1,0 +1,65 @@
+{
+  "nodes": {
+    "dots": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1720196032,
+        "narHash": "sha256-sErc4/hvQ00NLlbdTq6LAQbDhG7bFU0dhc7ecosNJKY=",
+        "owner": "Talha-Ak",
+        "repo": "nvim-config",
+        "rev": "3e87d5939db70a8e05c877c9666f3e251ff9934a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Talha-Ak",
+        "repo": "nvim-config",
+        "type": "github"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1747020534,
+        "narHash": "sha256-D/6rkiC6w2p+4SwRiVKrWIeYzun8FBg7NlMKMwQMxO0=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "b4bbdc6fde16fc2051fcde232f6e288cd22007ca",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "release-24.11",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1746957726,
+        "narHash": "sha256-k9ut1LSfHCr0AW82ttEQzXVCqmyWVA5+SHJkS5ID/Jo=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a39ed32a651fdee6842ec930761e31d1f242cb94",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-24.11",
+        "type": "indirect"
+      }
+    },
+    "root": {
+      "inputs": {
+        "dots": "dots",
+        "home-manager": "home-manager",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
