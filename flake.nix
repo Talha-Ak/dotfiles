@@ -33,12 +33,12 @@
       "talha@caelid" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = {inherit inputs;};
-        modules = [./home/default.nix ./home/nixos.nix];
+        modules = [./home/nixos.nix];
       };
       "talha@limgrave" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = {inherit inputs;};
-        modules = [./home/default.nix ./home/wsl.nix];
+        modules = [./home/wsl.nix];
       };
     };
   };
