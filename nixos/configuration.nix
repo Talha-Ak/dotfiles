@@ -12,6 +12,15 @@
   # Enable flakes.
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
+  # Periodically run the nix store optimiser.
+  nix.optimise.automatic = true;
+
+  # Perodically run the nix garbage collector.
+  nix.gc = {
+    automatic = true;
+    options = "--delete-older-than 14d";
+  };
+
   # Allow unfree packages.
   nixpkgs.config.allowUnfree = true;
 
@@ -21,8 +30,8 @@
     efi.canTouchEfiVariables = true;
   };
 
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+  hardware.bluetooth.enable = true; 
+  hardware.bluetooth.powerOnBoot = true;
 
   hardware.graphics.enable = true;
 
@@ -84,15 +93,8 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.talha = {
     isNormalUser = true;
     description = "Talha Abdulkuddus";
@@ -103,13 +105,11 @@
   programs.steam.enable = true;
 
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
     wget
     git
     clang
-    displaylink
   ];
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
