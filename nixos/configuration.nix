@@ -30,7 +30,7 @@
     efi.canTouchEfiVariables = true;
   };
 
-  hardware.bluetooth.enable = true; 
+  hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
   hardware.graphics.enable = true;
@@ -109,6 +109,11 @@
     wget
     git
     clang
+  ];
+
+  # NOTE: NixOS 25.05 will not need the override.
+  fonts.packages = with pkgs; [
+    (nerdfonts.override {fonts = ["JetBrainsMono" "CascadiaCode"];})
   ];
 
   # This value determines the NixOS release from which the default
