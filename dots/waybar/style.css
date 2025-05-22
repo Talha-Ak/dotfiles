@@ -1,0 +1,144 @@
+@import "theme.css";
+
+/*  === CSS RESET === */
+
+button:hover {
+    box-shadow: none;
+    text-shadow: none;
+    background: none;
+    transition: none;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    border: none;
+    min-height: 0;
+}
+
+/*  === END CSS RESET === */
+
+* {
+    font-family: CaskaydiaCove NF;
+    font-size: 12px;
+    color: @text;
+}
+
+#waybar {
+    background-color: @base;
+}
+
+#custom-nix {
+    color: @crust;
+    background-color: @blue;
+    padding-right: 6px;
+    border-radius: 0px 0px 16px 0px;
+    font-size: 16px;
+}
+
+#custom-quit,
+#custom-reboot,
+#custom-power {
+padding: 0px 10px;
+margin: 0px 0px;
+}
+
+#custom-quit:hover,
+#custom-reboot:hover,
+#custom-power:hover {
+    background-color: @surface2;
+}
+
+#workspaces {
+    padding: 4px 2px;
+}
+#workspaces button {
+    padding: 0px 4px;
+    margin: 0 2px;
+    border-radius: 4px;
+    background-color: @surface0;
+}
+
+#workspaces button.active {
+    background-color: @surface1;
+}
+
+#workspaces button:hover {
+    background-color: @surface2;
+}
+
+#pulseaudio {
+    padding: 0px 10px;
+    margin: 0px 10px;
+}
+
+#power-profiles-daemon {
+    padding: 0px 10px;
+    margin: 0px 10px;
+}
+
+#clock {
+    margin-left: 4px;
+}
+
+#battery {
+    padding: 0px 10px;
+}
+
+#battery.charging, #battery.plugged {
+    color: #ffffff;
+    background-color: #26A65B;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+
+/* Using steps() instead of linear as a timing function to limit cpu usage */
+#battery.critical:not(.charging) {
+    background-color: #f53c3c;
+    color: #ffffff;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+
+#tray {
+    background-color: #2980b9;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #eb4d4b;
+}
+
+#privacy {
+    padding: 0;
+}
+
+#privacy-item {
+    padding: 0 5px;
+    color: white;
+}
+
+#privacy-item.screenshare {
+    background-color: #cf5700;
+}
+
+#privacy-item.audio-in {
+    background-color: #1ca000;
+}
+
+#privacy-item.audio-out {
+    background-color: #0069d4;
+}

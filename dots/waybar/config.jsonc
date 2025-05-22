@@ -1,0 +1,124 @@
+{
+    "layer": "bottom",
+    "position": "top",
+    "height": 30,
+    "spacing": 4,
+    "reload-style-on-change": true,
+    "modules-left": [
+        "group/group-power",
+        "hyprland/workspaces",
+    ],
+    "modules-center": [
+        "hyprland/window",
+    ],
+    "modules-right": [
+        "pulseaudio",
+        "network",
+        "power-profiles-daemon",
+        "battery",
+        "clock",
+        "tray",
+    ],
+    "group/group-power": {
+        "orientation": "inherit",
+        "drawer": {
+            "click-to-reveal": true,
+            "transition-duration": 250,
+            "children-class": "drawer-power",
+            "transition-left-to-right": true,
+        },
+        "modules": [
+            "custom/nix",
+            "custom/quit",
+            "custom/lock",
+            "custom/reboot",
+            "custom/power",
+        ]
+    },
+    "custom/nix": {
+        "format": "  "
+    },
+    "custom/quit": {
+        "format": "󰗼",
+        "tooltip": false,
+        "on-click": "uwsm stop"
+    },
+    //"custom/lock": {
+    //    "format": "󰍁",
+    //    "tooltip": false,
+    //    "on-click": "swaylock"
+    //},
+    "custom/reboot": {
+        "format": "󰜉",
+        "tooltip": false,
+        "on-click": "reboot"
+    },
+    "custom/power": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "shutdown now"
+    },
+    "tray": {
+        // "icon-size": 21,
+        "spacing": 10,
+        // "icons": {
+        //   "blueman": "bluetooth",
+        //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
+        // }
+    },
+    "clock": {
+        // "timezone": "America/New_York",
+        "tooltip-format": "<big>{:%a %d %b %Y}</big>\n<tt><small>{calendar}</small></tt>",
+    },
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-full": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{time} {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "power-profiles-daemon": {
+      "format": "{icon}",
+      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+      "tooltip": true,
+      "format-icons": {
+        "default": "",
+        "performance": "",
+        "balanced": "",
+        "power-saver": ""
+      }
+    },
+    "network": {
+        "format-wifi": "{icon} {essid}",
+        "tooltip-format-wifi": "{icon} {essid} ({signalStrength}%)",
+        "format-ethernet": "  Ethernet",
+        "format-linked": "  No Internet",
+        "format-disconnected": "󰤮  Disconnected",
+        "format-icons": [
+            "󰤯 ", "󰤟 ", "󰤢 ", "󰤥 ", "󰤨 "
+        ]
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "reverse-scrolling": true,
+        "format": "{icon}  {volume}%",
+        "format-bluetooth": "{icon} {volume}%",
+        "format-bluetooth-muted": "{icon} ",
+        "format-muted": " MUTED",
+        "format-source": "",
+        "format-icons": {
+            "headphone": "",
+            "phone": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "uwsm app -- pavucontrol",
+    },
+}

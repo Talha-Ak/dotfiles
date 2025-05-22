@@ -26,7 +26,6 @@
 
   boot.loader = {
     systemd-boot.enable = true;
-    systemd-boot.consoleMode = "max";
     efi.canTouchEfiVariables = true;
   };
 
@@ -104,7 +103,11 @@
   programs.firefox.enable = true;
   programs.steam.enable = true;
 
+  # Optional, hint electron apps to use wayland:
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   environment.systemPackages = with pkgs; [
+    kitty
     vim
     wget
     git
