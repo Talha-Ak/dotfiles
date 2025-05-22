@@ -103,6 +103,12 @@
   programs.firefox.enable = true;
   programs.steam.enable = true;
 
+  programs.waybar.enable = true;
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+  }
+
   # Optional, hint electron apps to use wayland:
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
