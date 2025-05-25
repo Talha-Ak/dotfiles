@@ -7,6 +7,7 @@
     ./hardware-configuration.nix
     ./nvidia.nix
     ./laptop.nix
+    ./vfio.nix
   ];
 
   # Enable flakes.
@@ -60,7 +61,7 @@
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
+  services.xserver.enable = false;
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
@@ -86,8 +87,8 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
+  services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -101,7 +102,6 @@
     extraGroups = ["networkmanager" "wheel"];
   };
 
-  programs.firefox.enable = true;
   programs.steam.enable = true;
 
   environment.systemPackages = with pkgs; [
@@ -113,7 +113,8 @@
 
   # NOTE: NixOS 25.05 will not need the override.
   fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["JetBrainsMono" "CascadiaCode"];})
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.caskaydia-cove
   ];
 
   # This value determines the NixOS release from which the default
