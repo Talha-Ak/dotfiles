@@ -12,6 +12,8 @@
 
   home.packages = with pkgs; [
     discord
+    google-chrome
+    bitwarden-desktop
   ];
 
   home.shellAliases.srb = "sudo nixos-rebuild switch --flake ~/nix";
