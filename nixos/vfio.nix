@@ -9,7 +9,7 @@
   virtualisation.spiceUSBRedirection.enable = true;
   virtualisation.libvirtd = {
     enable = true;
-    # hooks.qemu = {nvidia-detach = ./hook.sh;};
+    hooks.qemu = {nvidia-detach = ./hook.sh;};
     qemu = {
       swtpm.enable = true;
       ovmf = {

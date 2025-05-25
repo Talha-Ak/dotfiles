@@ -99,7 +99,7 @@
   users.users.talha = {
     isNormalUser = true;
     description = "Talha Abdulkuddus";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "libvirtd"];
   };
 
   programs.steam.enable = true;
