@@ -100,6 +100,7 @@
     isNormalUser = true;
     description = "Talha Abdulkuddus";
     extraGroups = ["networkmanager" "wheel" "libvirtd"];
+    packages = with pkgs; [ looking-glass-client ];
   };
 
   programs.steam.enable = true;
