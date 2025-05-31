@@ -15,5 +15,8 @@
 
     # Manage Intel CPU thermals.
     thermald.enable = true;
+
+    # Enable touchpad support (enabled default in most desktopManager).
+    libinput.enable = true;
   };
 }

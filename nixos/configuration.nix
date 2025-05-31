@@ -19,7 +19,7 @@
   # Perodically run the nix garbage collector.
   nix.gc = {
     automatic = true;
-    options = "--delete-older-than 14d";
+    options = "--delete-older-than 7d";
   };
 
   # Allow unfree packages.
@@ -47,18 +47,6 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
 
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_GB.UTF-8";
-    LC_IDENTIFICATION = "en_GB.UTF-8";
-    LC_MEASUREMENT = "en_GB.UTF-8";
-    LC_MONETARY = "en_GB.UTF-8";
-    LC_NAME = "en_GB.UTF-8";
-    LC_NUMERIC = "en_GB.UTF-8";
-    LC_PAPER = "en_GB.UTF-8";
-    LC_TELEPHONE = "en_GB.UTF-8";
-    LC_TIME = "en_GB.UTF-8";
-  };
-
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = false;
@@ -66,9 +54,6 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.libinput.enable = true;
 
   # SSD Trim.
   services.fstrim.enable = true;
@@ -103,15 +88,17 @@
   };
 
   programs.steam.enable = true;
+  services.tailscale.enable = true;
 
   environment.systemPackages = with pkgs; [
     vim
     wget
     git
     clang
+    pciutils
+    psmisc
   ];
 
-  # NOTE: NixOS 25.05 will not need the override.
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     nerd-fonts.caskaydia-cove
