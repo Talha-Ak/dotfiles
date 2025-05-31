@@ -14,6 +14,7 @@
     discord
     google-chrome
     bitwarden-desktop
+    dell-command-configure
   ];
 
   home.shellAliases.srb = "sudo nixos-rebuild switch --flake ~/nix";
