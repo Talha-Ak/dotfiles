@@ -7,7 +7,7 @@
     ./hardware-configuration.nix
     ./nvidia.nix
     ./laptop.nix
-    ./vfio.nix
+    ./vfio
   ];
 
   # Enable flakes.
@@ -99,8 +99,7 @@
   users.users.talha = {
     isNormalUser = true;
     description = "Talha Abdulkuddus";
-    extraGroups = ["networkmanager" "wheel" "libvirtd"];
-    packages = with pkgs; [ looking-glass-client ];
+    extraGroups = ["networkmanager" "wheel"];
   };
 
   programs.steam.enable = true;

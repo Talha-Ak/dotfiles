@@ -4,9 +4,6 @@ readonly GUEST_NAME="$1"
 readonly OPERATION="$2"
 readonly SUB_OPERATION="$3"
 
-readonly VIRSH_GPU_VIDEO="pci_0000_01_00_0"
-readonly VIRSH_GPU_AUDIO="pci_0000_01_00_1"
-
 readonly guest="win11"
 
 function start_hook() {
@@ -15,10 +12,6 @@ function start_hook() {
     modprobe -r nvidia_modeset
     modprobe -r nvidia_uvm
     modprobe -r nvidia
-
-    # Unbind from nvidia, bind to vfio
-    # virsh nodedev-detach $VIRSH_GPU_VIDEO
-    # virsh nodedev-detach $VIRSH_GPU_AUDIO
 }
 
 function revert_hook() {
@@ -27,9 +20,6 @@ function revert_hook() {
     modprobe -r nvidia_uvm
     modprobe -r nvidia_modeset
     modprobe -r nvidia_drm
-
-    # virsh nodedev-reattach $VIRSH_GPU_VIDEO
-    # virsh nodedev-reattach $VIRSH_GPU_AUDIO
 }
 
 if [[ "$GUEST_NAME" != "$guest" ]]; then
