@@ -1,6 +1,7 @@
 # A (slightly) sane Neovim-Nix configuration
 
 > Shamelessly stolen from [Aylur/dotfiles](https://github.com/Aylur/dotfiles)
+(adapted under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/))
 
 Goals:
 - Functioning LSPs, formatters, etc.
