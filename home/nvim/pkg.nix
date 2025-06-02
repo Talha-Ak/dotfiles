@@ -7,7 +7,6 @@ with pkgs; let
     unzip
     ripgrep
     fd
-    python3
     luajitPackages.luarocks
     lua51Packages.lua
 
@@ -21,6 +20,9 @@ with pkgs; let
   ];
 in
   wrapNeovimUnstable neovim-unwrapped {
+    withRuby = true;
+    withNodeJs = true;
+    withPython3 = true;
     wrapRc = false;
     wrapperArgs = ''--suffix PATH : "${lib.makeBinPath bins}"'';
   }
