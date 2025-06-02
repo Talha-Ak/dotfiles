@@ -20,7 +20,7 @@
     type = "Application";
   };
 
-  igpuPlasmaWaylandPkg = pkgs.stdenv.mkDerivation rec {
+  igpuPlasmaWaylandPkg = pkgs.stdenvNoCC.mkDerivation rec {
     name = "igpu-plasma-wayland";
     dontUnpack = true;
 
