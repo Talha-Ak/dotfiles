@@ -94,7 +94,6 @@
     vim
     wget
     git
-    clang
     pciutils
     psmisc
   ];
