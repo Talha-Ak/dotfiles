@@ -1,12 +1,8 @@
-{
-  pkgs,
-  lib,
-  config,
-  inputs,
-  ...
-}: let
-  nvimConfigPath = inputs.dots;
-in {
+{pkgs, ...}: {
+  imports = [
+    ./nvim
+  ];
+
   home = {
     username = "talha";
     homeDirectory = "/home/talha";
@@ -25,8 +21,6 @@ in {
       curl
       wget
       btop
-      ripgrep
-      fd
     ];
   };
 
@@ -39,25 +33,6 @@ in {
     enable = true;
     userName = "Talha Abdulkuddus";
     userEmail = "git@talhaak.com";
-  };
-
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    vimAlias = true;
-    extraPackages = with pkgs; [
-      git
-      ripgrep
-      fd
-    ];
-  };
-
-  # TODO: Currently pulled from dotfiles repo.
-  # May change to outOfStoreSymlink
-  # or some other way for faster iterations.
-  home.file.".config/nvim" = {
-    source = nvimConfigPath;
-    recursive = true;
   };
 
   programs.home-manager.enable = true;
