@@ -1,0 +1,7 @@
+[general]
+import = [ "./catppuccin-mocha.toml" ]
+
+[font]
+normal = { family = "CaskaydiaCove NF" }
+size = 11
+
