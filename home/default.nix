@@ -35,6 +35,12 @@
     userEmail = "git@talhaak.com";
   };
 
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
+    nix-direnv.enable = true;
+  };
+
   programs.home-manager.enable = true;
 
   # This value determines the Home Manager release that your configuration is
