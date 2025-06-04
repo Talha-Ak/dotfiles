@@ -105,6 +105,7 @@
     vim
     wget
     git
+    wl-clipboard
     pciutils
     psmisc
   ];
