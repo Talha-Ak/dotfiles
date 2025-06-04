@@ -7,6 +7,7 @@ with pkgs; let
     unzip
     ripgrep
     fd
+    tree-sitter
     luajitPackages.luarocks
     lua51Packages.lua
 
