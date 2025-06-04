@@ -12,10 +12,15 @@
   home.packages = with pkgs; [
     discord
     alacritty
-    google-chrome
     bitwarden-desktop
     dell-command-configure
   ];
+
+  programs.chromium = {
+    enable = true;
+    package = pkgs.google-chrome;
+    commandLineArgs = ["--enable-features=AcceleratedVideoDecodeLinuxGL"];
+  };
 
   home.shellAliases.srb = "sudo nixos-rebuild switch --flake ~/nix";
 

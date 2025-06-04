@@ -34,7 +34,15 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
-  hardware.graphics.enable = true;
+  hardware.graphics = {
+    enable = true;
+
+    # Video acceleration on Intel
+    extraPackages = with pkgs; [
+      intel-media-driver
+    ];
+  };
+  environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";};
 
   networking.hostName = "caelid";
 
@@ -54,6 +62,9 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
+
+  # Enable Wayland support for Chromium/Electron apps
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # SSD Trim.
   services.fstrim.enable = true;
