@@ -10,19 +10,15 @@
     ./vfio
   ];
 
-  # Enable flakes.
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  # Periodically run the nix store optimiser.
   nix.optimise.automatic = true;
 
-  # Perodically run the nix garbage collector.
   nix.gc = {
     automatic = true;
     options = "--delete-older-than 7d";
   };
 
-  # Allow unfree packages.
   nixpkgs.config.allowUnfree = true;
 
   boot.loader = {
@@ -32,67 +28,52 @@
   };
 
   # Silent boot.
-  boot.initrd.verbose = false;
-  boot.consoleLogLevel = 0;
-  boot.kernelParams = [
-    "quiet"
-    "udev.log_level=3"
-  ];
+  # boot.initrd.verbose = false;
+  # boot.consoleLogLevel = 0;
+  # boot.kernelParams = [
+  #   "quiet"
+  #   "udev.log_level=3"
+  # ];
 
   hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
 
+  # Video acceleration and QSV on Intel
+  # https://wiki.nixos.org/wiki/Intel_Graphics
+  # https://wiki.nixos.org/wiki/Accelerated_Video_Playback
+  environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";};
   hardware.graphics = {
     enable = true;
-
-    # Video acceleration on Intel
     extraPackages = with pkgs; [
       intel-media-driver
+      vpl-gpu-rt
     ];
   };
-  environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";};
 
   networking.hostName = "caelid";
-
-  # Enable networking
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
   time.timeZone = "Europe/London";
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
 
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = false;
-
-  # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
   # Enable Wayland support for Chromium/Electron apps
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  # SSD Trim.
-  services.fstrim.enable = true;
-
-  # Configure keymap in X11
+  # Configure keymap
+  console.keyMap = "uk";
+  services.xserver.enable = false;
   services.xserver.xkb = {
     layout = "gb";
     variant = "";
     options = "caps:escape";
   };
 
-  # Configure console keymap
-  console.keyMap = "uk";
-
-  # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable sound with pipewire.
   security.rtkit.enable = true;
-  services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -106,7 +87,12 @@
     extraGroups = ["networkmanager" "wheel"];
   };
 
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    localNetworkGameTransfers.openFirewall = true;
+    remotePlay.openFirewall = true;
+  };
+
   services.tailscale.enable = true;
 
   environment.systemPackages = with pkgs; [
@@ -119,7 +105,6 @@
   ];
 
   fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
     nerd-fonts.caskaydia-cove
   ];
 

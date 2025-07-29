@@ -5,9 +5,9 @@
   ...
 }: {
   # Enable hardware accelerated graphics.
-  hardware.graphics.enable = lib.mkDefault true;
+  hardware.graphics.enable = true;
 
-  services.xserver.videoDrivers = lib.mkDefault ["nvidia"];
+  services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
     modesetting.enable = true;

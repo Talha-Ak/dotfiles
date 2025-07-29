@@ -6,12 +6,18 @@
 }: {
   services = {
     # Power Management.
-    # Gnome 40 introduced a new way of managing power, without tlp.
-    # However, these 2 services clash when enabled simultaneously.
+    # PPD and TLP clash when enabled simultaneously.
     # https://github.com/NixOS/nixos-hardware/issues/260
-    tlp.enable =
-      lib.mkDefault ((lib.versionOlder (lib.versions.majorMinor lib.version) "21.05")
-        || !config.services.power-profiles-daemon.enable);
+    tlp = {
+      enable = lib.mkDefault (
+        (lib.versionOlder (lib.versions.majorMinor lib.version) "21.05")
+          || !config.services.power-profiles-daemon.enable
+      );
+      settings = {
+        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+      };
+    };
 
     # Manage Intel CPU thermals.
     thermald.enable = true;
