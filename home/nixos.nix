@@ -18,14 +18,15 @@ in {
 
   home.shellAliases.srb = "sudo nixos-rebuild switch --flake ~/nix";
 
-  home.packages = with pkgs; [
-    discord
-    foot
-    bitwarden-desktop
-    dell-command-configure
+  home.packages = [
+    pkgs.discord
+    pkgs.foot
+    pkgs.bitwarden-desktop
+    pkgs.dell-command-configure
   ];
 
   services.hyprpaper.enable = true;
+  services.dunst.enable = true;
 
   programs.chromium = {
     enable = true;
@@ -37,5 +38,6 @@ in {
     (mkSymlinkedConfig "foot")
     (mkSymlinkedConfig "hypr")
     (mkSymlinkedConfig "uwsm")
+    (mkSymlinkedConfig "dunst/dunstrc.d")
   ];
 }
