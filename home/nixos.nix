@@ -2,16 +2,22 @@
   pkgs,
   config,
   ...
-}: {
+}: let
+  mkSymlinkedConfig = name: {
+    "${name}" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix/dots/.config/${name}/";
+      recursive = true;
+    };
+  };
+in {
   imports = [
     ./default.nix
   ];
-
   nixpkgs.config.allowUnfree = true;
 
   home.packages = with pkgs; [
     discord
-    alacritty
+    foot
     bitwarden-desktop
     dell-command-configure
   ];
@@ -19,13 +25,12 @@
   programs.chromium = {
     enable = true;
     package = pkgs.google-chrome;
-    commandLineArgs = ["--enable-features=AcceleratedVideoDecodeLinuxGL"];
+    commandLineArgs = ["--enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL,AcceleratedVideoEncoder"];
   };
 
   home.shellAliases.srb = "sudo nixos-rebuild switch --flake ~/nix";
 
-  xdg.configFile.alacritty = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix/dots/.config/alacritty/";
-    recursive = true;
-  };
+  xdg.configFile = pkgs.lib.mkMerge [
+    (mkSymlinkedConfig "foot")
+  ];
 }
