@@ -60,7 +60,12 @@
   services.desktopManager.plasma6.enable = true;
 
   # Enable Wayland support for Chromium/Electron apps
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  # https://wiki.archlinux.org/title/PRIME#Some_programs_have_a_delay_when_opening_under_Wayland
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    __EGL_VENDOR_LIBRARY_FILENAMES = "/run/opengl-driver/share/glvnd/egl_vendor.d/50_mesa.json";
+    __GLX_VENDOR_LIBRARY_NAME = "mesa";
+  };
 
   # Configure keymap
   console.keyMap = "uk";

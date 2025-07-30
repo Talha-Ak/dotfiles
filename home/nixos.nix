@@ -36,5 +36,6 @@ in {
   xdg.configFile = pkgs.lib.mkMerge [
     (mkSymlinkedConfig "foot")
     (mkSymlinkedConfig "hypr")
+    (mkSymlinkedConfig "uwsm")
   ];
 }
