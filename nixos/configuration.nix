@@ -87,6 +87,11 @@
     extraGroups = ["networkmanager" "wheel"];
   };
 
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+  };
+
   programs.steam = {
     enable = true;
     localNetworkGameTransfers.openFirewall = true;
@@ -96,6 +101,7 @@
   services.tailscale.enable = true;
 
   environment.systemPackages = with pkgs; [
+    kitty
     vim
     wget
     git

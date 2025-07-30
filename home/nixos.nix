@@ -13,7 +13,10 @@ in {
   imports = [
     ./default.nix
   ];
+
   nixpkgs.config.allowUnfree = true;
+
+  home.shellAliases.srb = "sudo nixos-rebuild switch --flake ~/nix";
 
   home.packages = with pkgs; [
     discord
@@ -22,15 +25,16 @@ in {
     dell-command-configure
   ];
 
+  services.hyprpaper.enable = true;
+
   programs.chromium = {
     enable = true;
     package = pkgs.google-chrome;
     commandLineArgs = ["--enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL,AcceleratedVideoEncoder"];
   };
 
-  home.shellAliases.srb = "sudo nixos-rebuild switch --flake ~/nix";
-
   xdg.configFile = pkgs.lib.mkMerge [
     (mkSymlinkedConfig "foot")
+    (mkSymlinkedConfig "hypr")
   ];
 }
