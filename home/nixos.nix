@@ -23,6 +23,7 @@ in {
     pkgs.foot
     pkgs.bitwarden-desktop
     pkgs.dell-command-configure
+    pkgs.rofi-wayland
   ];
 
   services.hyprpaper.enable = true;
@@ -39,5 +40,6 @@ in {
     (mkSymlinkedConfig "hypr")
     (mkSymlinkedConfig "uwsm")
     (mkSymlinkedConfig "dunst/dunstrc.d")
+    (mkSymlinkedConfig "rofi")
   ];
 }
