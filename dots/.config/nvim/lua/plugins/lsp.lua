@@ -55,6 +55,8 @@ local servers = {
   -- Nix config
   nil_ls = {},
 
+  qmlls = {},
+
   -- LaTeX
   texlab = {
     settings = {

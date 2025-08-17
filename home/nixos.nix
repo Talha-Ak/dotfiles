@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  inputs,
   ...
 }: let
   mkSymlinkedConfig = name: {
@@ -24,6 +25,7 @@ in {
     pkgs.bitwarden-desktop
     pkgs.dell-command-configure
     pkgs.rofi-wayland
+    inputs.quickshell.packages.x86_64-linux.default
   ];
 
   services.hyprpaper.enable = true;
@@ -41,5 +43,6 @@ in {
     (mkSymlinkedConfig "uwsm")
     (mkSymlinkedConfig "dunst/dunstrc.d")
     (mkSymlinkedConfig "rofi")
+    (mkSymlinkedConfig "quickshell")
   ];
 }

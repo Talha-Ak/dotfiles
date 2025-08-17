@@ -18,6 +18,10 @@ with pkgs; let
     # nix
     nil
     alejandra
+
+    # qml
+    # FIXME: This needs to go after I'm done!
+    kdePackages.qtdeclarative
   ];
 in
   wrapNeovimUnstable neovim-unwrapped {
