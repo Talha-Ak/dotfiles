@@ -50,9 +50,13 @@ PanelWindow {
             anchors.right: bar.right
             anchors.verticalCenter: bar.verticalCenter
             anchors.rightMargin: 8
-            spacing: 16
+            spacing: 20
 
             SystemTray {
+                Layout.fillHeight: true
+            }
+
+            SystemStatus {
                 Layout.fillHeight: true
             }
 
