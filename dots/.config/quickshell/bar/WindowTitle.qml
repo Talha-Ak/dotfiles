@@ -3,6 +3,8 @@ pragma ComponentBehavior: Bound
 import Quickshell.Wayland
 import QtQuick
 
+import qs.utils
+
 Item {
     id: root
 

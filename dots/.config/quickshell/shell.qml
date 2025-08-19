@@ -1,6 +1,11 @@
 //@ pragma UseQApplication
 import Quickshell
+import qs.bar
 
 Scope {
-    Bar {}
+    Variants {
+        model: Quickshell.screens
+
+        Bar {}
+    }
 }
