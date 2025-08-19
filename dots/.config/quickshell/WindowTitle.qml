@@ -1,51 +1,68 @@
+pragma ComponentBehavior: Bound
+
 import Quickshell.Wayland
 import QtQuick
 
 Item {
     id: root
 
-    property string textContent: ToplevelManager.activeToplevel?.title || ""
-    property Item current: text1
-    property int animationDuration: 150
+    property int animationDuration: 300
+    property string fontFamily: "CaskaydiaCove NF"
+    property int fontSize: 10
 
-    width: implicitWidth
-    height: parent.height
+    property Item current: text1
+
+    clip: true
+    implicitHeight: current.implicitHeight
     implicitWidth: current === text1 ? text1.implicitWidth : text2.implicitWidth
 
-    Behavior on width {
-        TitleAnim {}
+    Behavior on implicitWidth {
+        NumberAnimation {
+            duration: root.animationDuration
+            easing.type: Easing.OutQuint
+        }
     }
 
-    // TODO: Use TextMetrics to elide text
-
-    StyledText {
+    Title {
         id: text1
-
-        anchors.verticalCenter: parent.verticalCenter
-        opacity: root.current === this ? 1 : 0
-        Behavior on opacity {
-            TitleAnim {}
-        }
     }
 
-    StyledText {
+    Title {
         id: text2
+    }
 
-        anchors.verticalCenter: parent.verticalCenter
-        opacity: root.current === this ? 1 : 0
-        Behavior on opacity {
-            TitleAnim {}
+    TextMetrics {
+        id: metrics
+
+        text: ToplevelManager.activeToplevel?.title || "Desktop"
+        font.family: root.fontFamily
+        font.pointSize: root.fontSize
+        elide: Qt.ElideMiddle
+        elideWidth: 800
+
+        onElideWidthChanged: root.current.text = elidedText
+        onTextChanged: {
+            const next = root.current === text1 ? text2 : text1;
+            next.text = elidedText;
+            root.current = next;
         }
     }
 
-    onTextContentChanged: {
-        const next = root.current === text1 ? text2 : text1;
-        next.text = textContent;
-        root.current = next;
-    }
+    component Title: StyledText {
+        anchors.verticalCenter: parent.verticalCenter
 
-    component TitleAnim: NumberAnimation {
-        duration: root.animationDuration
-        easing.type: Easing.OutQuart
+        width: implicitWidth
+        height: implicitHeight
+
+        font.family: root.fontFamily
+        font.pointSize: root.fontSize
+        opacity: root.current === this ? 1 : 0
+
+        Behavior on opacity {
+            NumberAnimation {
+                duration: root.animationDuration
+                easing.type: Easing.OutQuart
+            }
+        }
     }
 }

@@ -10,3 +10,4 @@ You probably shouldn't use this.
 - [ ] Finish dunst setup
 - [ ] Finish hyprlock
 - [ ] Switch rofi-wayland to rofi when upstreamed (or walker?)
+- [ ] Better tray items
