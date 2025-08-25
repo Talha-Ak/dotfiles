@@ -5,7 +5,6 @@ import qs.utils
 
 Rectangle {
     width: layout.implicitWidth + 8
-    height: layout.implicitHeight
     radius: 0
     color: "#44000000"
 
