@@ -2,10 +2,14 @@
 import Quickshell
 import qs.bar
 
-Scope {
-    Variants {
-        model: Quickshell.screens
+Variants {
+    model: Quickshell.screens
 
-        Bar {}
+    Scope {
+        required property var modelData
+
+        Bar {
+            screen: modelData
+        }
     }
 }
