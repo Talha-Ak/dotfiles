@@ -1,94 +1,121 @@
 return {
-
   -- buffer-like file explorer
+  -- TODO: oil-git
   {
     "stevearc/oil.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = { "nvim-tree/nvim-web-devicons", "folke/snacks.nvim" },
     opts = {
       skip_confirm_for_simple_edits = true,
+      watch_for_changes = true,
       view_options = {
         show_hidden = true,
       },
     },
     config = function(_, opts)
       require("oil").setup(opts)
+      vim.keymap.set("n", "<leader>e", "<cmd>Oil --float<CR>", { desc = "Open [E]xplorer" })
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "OilActionsPost",
+        callback = function(event)
+          if event.data.actions.type == "move" then
+            Snacks.rename.on_rename_file(event.data.actions.src_url, event.data.actions.dest_url)
+          end
+        end,
+      })
     end,
-    vim.keymap.set("n", "<leader>e", "<cmd>Oil --float<CR>", { desc = "Open [E]xplorer" }),
   },
 
-  -- fuzzy finder
+  -- TODO: picker layout
   {
-    -- TODO: LazyVim has a fn that detects .git and changes cmd between git_files and find_files
-    -- https://github.com/LazyVim/LazyVim/blob/dde4a9dcdf49719c67642d09847dbaf7f9c7a156/lua/lazyvim/plugins/extras/editor/telescope.lua
-    "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope-ui-select.nvim",
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {
+      bigfile = { enabled = true },
+      picker = { enabled = true },
+      quickfile = { enabled = true },
+    },
+    keys = {
       {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-        cond = function()
-          return vim.fn.executable("make") == 1
+        "<C-p>",
+        function()
+          Snacks.picker.files({ hidden = true })
         end,
+        desc = "Find Files",
       },
       {
-        "nvim-tree/nvim-web-devicons",
-        enabled = vim.g.have_nerd_font,
+        "<leader>sg",
+        function()
+          Snacks.picker.grep()
+        end,
+        desc = "Grep",
+      },
+      {
+        "<leader>sn",
+        function()
+          Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
+        end,
+        desc = "Find Neovim Config File",
       },
     },
-    cmd = "Telescope",
-        -- stylua: ignore
-        keys = {
-            { "<C-p>",      function() require("telescope.builtin").git_files()  end, desc = "Find git files" },
-            { "<leader>sf", function() require("telescope.builtin").find_files() end, desc = "Find files" },
-            { "<leader>sg", function() require("telescope.builtin").live_grep()  end, desc = "Grep" },
-        },
-    config = function()
-      require("telescope").setup({
-        extensions = {
-          ["ui-select"] = {
-            require("telescope.themes").get_dropdown(),
-          },
-        },
-      })
-
-      -- Enable Telescope extensions if they are installed
-      pcall(require("telescope").load_extension, "fzf")
-      pcall(require("telescope").load_extension, "ui-select")
-    end,
   },
 
   -- todo highlighter
   {
     "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "folke/snacks.nvim" },
+    event = { "BufReadPost" },
     cmd = { "TodoTrouble", "TodoTelescope" },
-    event = "LazyFile",
-    config = true,
-        -- stylua: ignore
-        keys = {
-            { "]t",         function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
-            { "[t",         function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
-            { "<leader>st", "<cmd>TodoTelescope<cr>",                            desc = "Todo" },
-            { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>",    desc = "Todo/Fix/Fixme" },
+    opts = {
+      -- Match TODO and TODO(name)
+      indent = {
+        animate = {
+          enabled = false,
         },
+      },
+      search = { pattern = [[\b(KEYWORDS)(\([^\)]*\))?:]] },
+      highlight = { pattern = [[.*<((KEYWORDS)%(\(.{-1,}\))?):]] },
+    },
+    keys = {
+      {
+        "]t",
+        function()
+          require("todo-comments").jump_next()
+        end,
+        desc = "Next todo comment",
+      },
+      {
+        "[t",
+        function()
+          require("todo-comments").jump_prev()
+        end,
+        desc = "Previous todo comment",
+      },
+      {
+        "<leader>st",
+        function()
+          Snacks.picker.todo_comments()
+        end,
+        desc = "Todo",
+      },
+    },
   },
 
   -- git diff
+  -- TODO: Config
   {
     "lewis6991/gitsigns.nvim",
-    event = "LazyFile",
+    event = { "BufReadPost" },
+    opts = {
+      sign_priority = 15, -- higher than todo-comments
+    },
   },
 
-  {
-    "tpope/vim-fugitive",
-    event = "LazyFile",
-  },
-
-  {
-    "nmac427/guess-indent.nvim",
-    event = "LazyFile",
-  },
-
-  { "github/copilot.vim" },
+  --
+  -- {
+  --   "tpope/vim-fugitive",
+  -- },
+  --
+  -- { "github/copilot.vim" },
 }

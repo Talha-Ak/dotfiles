@@ -76,3 +76,6 @@ vim.opt.completeopt = "menu,menuone,noselect"
 
 -- Completion height
 vim.opt.pumheight = 10
+
+-- Floating window border
+vim.opt.winborder = "rounded"

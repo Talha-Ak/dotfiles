@@ -1,23 +1,25 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master",
     build = ":TSUpdate",
-    event = { "LazyFile", "VeryLazy" },
-    lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
+    main = "nvim-treesitter.configs", -- Sets main module to use for opts
+    event = { "VeryLazy" },
     cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
-        auto_install = true,
-        highlight = { enable = true },
-        indent = { enable = true },
-      })
-    end,
+    opts = {
+      ensure_installed = { "bash", "lua", "markdown", "regex", "vimdoc" },
+      auto_install = true,
+      highlight = { enable = true },
+      indent = { enable = true },
+    },
   },
   {
-    "echasnovski/mini.pairs",
-    version = false,
+    "saghen/blink.pairs",
+    version = "*",
+    dependencies = { "saghen/blink.download" },
     event = "InsertEnter",
-    config = true,
+    opts = {
+      highlights = { enabled = false },
+    },
   },
 }
