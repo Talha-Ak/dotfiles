@@ -6,6 +6,7 @@ local servers = {
   },
 
   manual = {
+    "basedpyright",
     "nil_ls",
     "qmlls",
     "texlab",
@@ -19,6 +20,7 @@ local formatters = {
 
   manual = {
     nix = { "alejandra" },
+    python = { "black", "isort" },
   },
 }
 
@@ -34,9 +36,9 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
       end
 
       if not excluded_fts() then
-        vim.cmd("Lazy load mason-lspconfig.nvim mason-tool-installer.nvim")
+        vim.cmd("Lazy load nvim-lspconfig mason-lspconfig.nvim mason-tool-installer.nvim")
       end
-    end, 50)
+    end, 100)
   end,
 })
 
@@ -93,7 +95,7 @@ return {
     lazy = true,
     dependencies = {
       { "j-hui/fidget.nvim" },
-      { "saghen/blink.cmp" },
+      { "folke/snacks.nvim" },
     },
     config = function()
       -- INFO: Some servers may require an old setup until they are updated.
@@ -101,9 +103,7 @@ return {
       -- require("lspconfig").server_name.setup{}
       -- For full list: https://github.com/neovim/nvim-lspconfig/issues/3705
       local all_servers = vim.iter(vim.tbl_values(servers)):flatten():totable()
-      for _, server in ipairs(all_servers) do
-        vim.lsp.enable(server)
-      end
+      vim.lsp.enable(all_servers)
 
       --  This function gets run when an LSP attaches to a particular buffer.
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -112,6 +112,10 @@ return {
           local map = function(keys, func, desc)
             vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
           end
+
+          -- stylua: ignore
+          -- See :h lsp-defualts
+          map("grd", function() Snacks.picker.lsp_definitions() end, "Goto Definition")
 
           -- Highlight references of word under your cursor when idle.
           local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -136,13 +140,6 @@ return {
                 vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
               end,
             })
-          end
-
-          -- Toggle inlay hints
-          if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-            map("<leader>th", function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-            end, "[T]oggle Inlay [H]ints")
           end
         end,
       })

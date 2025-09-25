@@ -15,6 +15,7 @@ return {
       require("oil").setup(opts)
       vim.keymap.set("n", "<leader>e", "<cmd>Oil --float<CR>", { desc = "Open [E]xplorer" })
 
+      -- Oil/LSP rename integration
       vim.api.nvim_create_autocmd("User", {
         pattern = "OilActionsPost",
         callback = function(event)
@@ -26,7 +27,6 @@ return {
     end,
   },
 
-  -- TODO: picker layout
   {
     "folke/snacks.nvim",
     priority = 1000,
@@ -36,28 +36,12 @@ return {
       picker = { enabled = true },
       quickfile = { enabled = true },
     },
+    -- stylua: ignore
     keys = {
-      {
-        "<C-p>",
-        function()
-          Snacks.picker.files({ hidden = true })
-        end,
-        desc = "Find Files",
-      },
-      {
-        "<leader>sg",
-        function()
-          Snacks.picker.grep()
-        end,
-        desc = "Grep",
-      },
-      {
-        "<leader>sn",
-        function()
-          Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
-        end,
-        desc = "Find Neovim Config File",
-      },
+      { "<C-p>",      function() Snacks.picker.files({ hidden = true }) end,                  desc = "Find Files" },
+      { "<leader>sg", function() Snacks.picker.grep() end,                                    desc = "Grep" },
+      { "<leader>sn", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Neovim Config File" },
+      { "<leader>u",  function() Snacks.picker.undo() end,                                    desc = "Undo History" },
     },
   },
 
@@ -77,28 +61,11 @@ return {
       search = { pattern = [[\b(KEYWORDS)(\([^\)]*\))?:]] },
       highlight = { pattern = [[.*<((KEYWORDS)%(\(.{-1,}\))?):]] },
     },
+    -- stylua: ignore
     keys = {
-      {
-        "]t",
-        function()
-          require("todo-comments").jump_next()
-        end,
-        desc = "Next todo comment",
-      },
-      {
-        "[t",
-        function()
-          require("todo-comments").jump_prev()
-        end,
-        desc = "Previous todo comment",
-      },
-      {
-        "<leader>st",
-        function()
-          Snacks.picker.todo_comments()
-        end,
-        desc = "Todo",
-      },
+      { "]t",         function() require("todo-comments").jump_next() end,  desc = "Next todo comment" },
+      { "[t",         function() require("todo-comments").jump_prev() end,  desc = "Previous todo comment" },
+      { "<leader>st", function() Snacks.picker.todo_comments() end,         desc = "Todo" },
     },
   },
 

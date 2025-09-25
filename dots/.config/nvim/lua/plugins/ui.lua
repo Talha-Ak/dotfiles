@@ -65,7 +65,7 @@ return {
   -- notifications
   {
     "j-hui/fidget.nvim",
-    lazy = true,
+    event = "VeryLazy",
     opts = {
       progress = {
         display = {
