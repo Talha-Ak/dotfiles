@@ -38,7 +38,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
       if not excluded_fts() then
         vim.cmd("Lazy load nvim-lspconfig mason-lspconfig.nvim mason-tool-installer.nvim")
       end
-    end, 100)
+    end, 250)
   end,
 })
 
@@ -79,7 +79,7 @@ return {
     },
     cond = vim.fn.executable("home-manager") == 0,
     opts = function(_, opts)
-      table.insert(opts.ensure_installed, {
+      table.insert(opts.ensure_installed or {}, {
         function()
           local required_tooling = servers.mason or {}
           local formatters_list = vim.iter(vim.tbl_values(formatters.mason)):flatten():totable()
