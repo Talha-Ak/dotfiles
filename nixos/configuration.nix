@@ -1,14 +1,12 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
     ./nvidia.nix
     ./laptop.nix
     ./vfio
   ];
+
+  #========== NIX CONFIG ==========
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
@@ -20,6 +18,8 @@
   };
 
   nixpkgs.config.allowUnfree = true;
+
+  #========== BOOT ==========
 
   boot.loader = {
     systemd-boot.enable = true;
@@ -35,6 +35,8 @@
   #   "udev.log_level=3"
   # ];
 
+  #========== HARDWARE ==========
+
   hardware.bluetooth.enable = true;
 
   # Video acceleration and QSV on Intel
@@ -43,21 +45,11 @@
   environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";};
   hardware.graphics = {
     enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-      vpl-gpu-rt
+    extraPackages = [
+      pkgs.intel-media-driver
+      pkgs.vpl-gpu-rt
     ];
   };
-
-  networking.hostName = "caelid";
-  networking.networkmanager.enable = true;
-
-  time.timeZone = "Europe/London";
-
-  i18n.defaultLocale = "en_GB.UTF-8";
-
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
 
   # Enable Wayland support for Chromium/Electron apps
   # https://wiki.archlinux.org/title/PRIME#Some_programs_have_a_delay_when_opening_under_Wayland
@@ -66,6 +58,11 @@
     __EGL_VENDOR_LIBRARY_FILENAMES = "/run/opengl-driver/share/glvnd/egl_vendor.d/50_mesa.json";
     __GLX_VENDOR_LIBRARY_NAME = "mesa";
   };
+
+  networking.hostName = "caelid";
+  networking.networkmanager.enable = true;
+
+  #========== LOCALE ==========
 
   # Configure keymap
   console.keyMap = "uk";
@@ -76,7 +73,24 @@
     options = "caps:escape";
   };
 
-  services.printing.enable = true;
+  time.timeZone = "Europe/London";
+
+  i18n.defaultLocale = "en_GB.UTF-8";
+
+  #========== SERVICES ==========
+
+  # Auto-discover network printers
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+  };
+  services.printing = {
+    enable = true;
+    drivers = [
+      pkgs.cups-filters
+      pkgs.cups-browsed
+    ];
+  };
 
   security.rtkit.enable = true;
   services.pipewire = {
@@ -86,11 +100,16 @@
     pulse.enable = true;
   };
 
+  #========== USER ==========
+
   users.users.talha = {
     isNormalUser = true;
     description = "Talha Abdulkuddus";
     extraGroups = ["networkmanager" "wheel"];
   };
+
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   programs.hyprland = {
     enable = true;
@@ -106,18 +125,18 @@
 
   services.tailscale.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    kitty
-    vim
-    wget
-    git
-    wl-clipboard
-    pciutils
-    psmisc
+  environment.systemPackages = [
+    pkgs.kitty
+    pkgs.vim
+    pkgs.wget
+    pkgs.git
+    pkgs.wl-clipboard
+    pkgs.pciutils
+    pkgs.psmisc
   ];
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.caskaydia-cove
+  fonts.packages = [
+    pkgs.nerd-fonts.caskaydia-cove
   ];
 
   # This value determines the NixOS release from which the default
