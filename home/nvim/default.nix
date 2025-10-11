@@ -2,9 +2,41 @@
   config,
   pkgs,
   ...
-}: let
-  nvim = import ./pkg.nix {inherit pkgs;};
-in {
+}: {
+  programs.neovim = {
+    enable = true;
+    package = pkgs.neovim-unwrapped;
+
+    withRuby = true;
+    withNodeJs = true;
+    withPython3 = true;
+
+    extraPackages = with pkgs; [
+      git
+      gcc
+      gnumake
+      unzip
+
+      ripgrep
+      fd
+
+      tree-sitter
+      luajitPackages.luarocks
+      lua51Packages.lua
+
+      # lua
+      lua-language-server
+      stylua
+
+      # nix
+      nil
+      alejandra
+    ];
+
+    defaultEditor = true;
+    vimAlias = true;
+  };
+
   xdg = {
     configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix/dots/.config/nvim/";
     configFile.nvim.recursive = true;
@@ -20,13 +52,4 @@ in {
       mimeType = ["text/plain"];
     };
   };
-
-  home.sessionVariables = {
-    EDITOR = "nvim";
-    VISUAL = "nvim";
-  };
-
-  home.shellAliases.vim = "nvim";
-
-  home.packages = [nvim];
 }
