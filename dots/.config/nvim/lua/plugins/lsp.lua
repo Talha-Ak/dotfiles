@@ -98,12 +98,28 @@ return {
       { "folke/snacks.nvim" },
     },
     config = function()
-      -- INFO: Some servers may require an old setup until they are updated.
-      -- These servers will have to be manually set up with
-      -- require("lspconfig").server_name.setup{}
-      -- For full list: https://github.com/neovim/nvim-lspconfig/issues/3705
       local all_servers = vim.iter(vim.tbl_values(servers)):flatten():totable()
-      vim.lsp.enable(all_servers)
+
+      if vim.fn.has("wsl") == 0 then
+        vim.lsp.enable(all_servers)
+      else
+        -- https://github.com/neovim/neovim/issues/31506
+        -- I hate windows.
+        for _, server in pairs(all_servers) do
+          local success, server_config = pcall(require, "lspconfig.configs." .. server)
+          if success and server_config then
+            local cmd = server_config.default_config and server_config.default_config.cmd
+            if cmd and type(cmd) == "table" and #cmd > 0 then
+              local executable = cmd[1]
+              if vim.fn.executable(executable) == 1 then
+                vim.lsp.enable(server)
+              end
+            end
+          else
+            vim.notify("LSP config for '" .. server .. "' not found. Skipping.", vim.log.levels.WARN)
+          end
+        end
+      end
 
       --  This function gets run when an LSP attaches to a particular buffer.
       vim.api.nvim_create_autocmd("LspAttach", {
