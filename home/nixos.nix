@@ -23,11 +23,18 @@ in {
   home.shellAliases.srb = "sudo nixos-rebuild switch --flake ~/nix";
 
   home.packages = [
+    # Apps
     pkgs.discord
     pkgs.foot
     pkgs.bitwarden-desktop
+    pkgs.spotify
+
+    # Tools
     pkgs.dell-command-configure
     pkgs.rofi-wayland
+    pkgs.grim
+    pkgs.slurp
+    pkgs.satty
   ];
 
   services.dunst.enable = true;
