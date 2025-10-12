@@ -3,13 +3,19 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    dankMaterialShell = {
+      # url = "github:AvengeMedia/DankMaterialShell?ref=3fb5d5c4f3143b4f41632302f7158fc8a85367bf";
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "unstable";
+    };
     quickshell = {
       url = "git+https://git.outfoxxed.me/quickshell/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
   };
 

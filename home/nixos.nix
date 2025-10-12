@@ -13,6 +13,9 @@
 in {
   imports = [
     ./default.nix
+    # TODO: Remove when qs is in nixpkgs stable
+    ./quickshell-jank.nix
+    inputs.dankMaterialShell.homeModules.dankMaterialShell.default
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -25,11 +28,20 @@ in {
     pkgs.bitwarden-desktop
     pkgs.dell-command-configure
     pkgs.rofi-wayland
-    inputs.quickshell.packages.x86_64-linux.default
   ];
 
-  services.hyprpaper.enable = true;
   services.dunst.enable = true;
+
+  programs.dankMaterialShell = {
+    enable = true;
+    quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    default.session = {
+      wallpaperPath = "/home/talha/nix/wall/wallhaven-2keqwx.png";
+      wallpaperLastPath = "/home/talha/nix/wall";
+      isLightMode = false;
+      launchPrefix = "uwsm-app";
+    };
+  };
 
   programs.chromium = {
     enable = true;
@@ -43,6 +55,5 @@ in {
     (mkSymlinkedConfig "uwsm")
     (mkSymlinkedConfig "dunst/dunstrc.d")
     (mkSymlinkedConfig "rofi")
-    (mkSymlinkedConfig "quickshell")
   ];
 }

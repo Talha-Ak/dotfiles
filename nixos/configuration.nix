@@ -42,7 +42,8 @@
   # Video acceleration and QSV on Intel
   # https://wiki.nixos.org/wiki/Intel_Graphics
   # https://wiki.nixos.org/wiki/Accelerated_Video_Playback
-  environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";};
+  # environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";};
+  environment.sessionVariables = {LIBVA_DRIVER_NAME = "nvidia";};
   hardware.graphics = {
     enable = true;
     extraPackages = [
@@ -55,8 +56,8 @@
   # https://wiki.archlinux.org/title/PRIME#Some_programs_have_a_delay_when_opening_under_Wayland
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
-    __EGL_VENDOR_LIBRARY_FILENAMES = "/run/opengl-driver/share/glvnd/egl_vendor.d/50_mesa.json";
-    __GLX_VENDOR_LIBRARY_NAME = "mesa";
+    # __EGL_VENDOR_LIBRARY_FILENAMES = "/run/opengl-driver/share/glvnd/egl_vendor.d/50_mesa.json";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
 
   networking.hostName = "caelid";
@@ -115,7 +116,7 @@
     enable = true;
     withUWSM = true;
   };
-  programs.hyprlock.enable = true;
+  # programs.hyprlock.enable = true;
 
   programs.steam = {
     enable = true;

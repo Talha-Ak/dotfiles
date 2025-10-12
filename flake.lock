@@ -1,5 +1,70 @@
 {
   "nodes": {
+    "dankMaterialShell": {
+      "inputs": {
+        "dgop": "dgop",
+        "dms-cli": "dms-cli",
+        "nixpkgs": [
+          "unstable"
+        ],
+        "quickshell": "quickshell"
+      },
+      "locked": {
+        "lastModified": 1760245690,
+        "narHash": "sha256-sFENMIZTgLOMyXoFiL9FFY4sZt0HaGYIAcxe5BHOrJ0=",
+        "owner": "AvengeMedia",
+        "repo": "DankMaterialShell",
+        "rev": "a17343f40e2c2788d775aef08e55f73ce6e20ae2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AvengeMedia",
+        "repo": "DankMaterialShell",
+        "type": "github"
+      }
+    },
+    "dgop": {
+      "inputs": {
+        "nixpkgs": [
+          "dankMaterialShell",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1760238269,
+        "narHash": "sha256-7CeGZM/Z/5Qt3AYByCRohGYGR1MRuXYzTTbkV/JxyAs=",
+        "owner": "AvengeMedia",
+        "repo": "dgop",
+        "rev": "95acdfce2d323e28fa8f5a4f345160962034f2b5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AvengeMedia",
+        "repo": "dgop",
+        "type": "github"
+      }
+    },
+    "dms-cli": {
+      "inputs": {
+        "nixpkgs": [
+          "dankMaterialShell",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1760241259,
+        "narHash": "sha256-DlLGn+4M6tIafoDsHr2WhHG2hrHrC24S2IL3+KAvjEU=",
+        "owner": "AvengeMedia",
+        "repo": "danklinux",
+        "rev": "dae4c3ff4ce0feb930361c399747edb29d081775",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AvengeMedia",
+        "repo": "danklinux",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -23,11 +88,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1759281824,
-        "narHash": "sha256-FIBE1qXv9TKvSNwst6FumyHwCRH3BlWDpfsnqRDCll0=",
+        "lastModified": 1759994382,
+        "narHash": "sha256-wSK+3UkalDZRVHGCRikZ//CyZUJWDJkBDTQX1+G77Ow=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5b5be50345d4113d04ba58c444348849f5585b4a",
+        "rev": "5da4a26309e796daa7ffca72df93dbe53b8164c7",
         "type": "github"
       },
       "original": {
@@ -40,15 +105,36 @@
     "quickshell": {
       "inputs": {
         "nixpkgs": [
+          "dankMaterialShell",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1759303785,
-        "narHash": "sha256-EUXrK7pUIzOQWR1dquZh26A6W8lsY2oiHEEZzQnsarM=",
+        "lastModified": 1760228179,
+        "narHash": "sha256-4Z6k7lv3Zcgk3K+4h60LpqB9wCkR+utkYERU735U068=",
         "ref": "refs/heads/master",
-        "rev": "9662234759eb57f2a1057f2a1c667da1bf128c1c",
-        "revCount": 686,
+        "rev": "c9d3ffb6043c5bf3f3009202bad7e0e5132c4a25",
+        "revCount": 693,
+        "type": "git",
+        "url": "https://git.outfoxxed.me/quickshell/quickshell"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.outfoxxed.me/quickshell/quickshell"
+      }
+    },
+    "quickshell_2": {
+      "inputs": {
+        "nixpkgs": [
+          "unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1760253276,
+        "narHash": "sha256-qZP+IsQWwg+R7Pqziat5zCZ1sLw+wsVx+bWWM56cKEY=",
+        "ref": "refs/heads/master",
+        "rev": "1e8cc2e78da0cdfa98aafb02d9c1b22e71e07dff",
+        "revCount": 695,
         "type": "git",
         "url": "https://git.outfoxxed.me/quickshell/quickshell"
       },
@@ -59,9 +145,27 @@
     },
     "root": {
       "inputs": {
+        "dankMaterialShell": "dankMaterialShell",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "quickshell": "quickshell"
+        "quickshell": "quickshell_2",
+        "unstable": "unstable"
+      }
+    },
+    "unstable": {
+      "locked": {
+        "lastModified": 1760038930,
+        "narHash": "sha256-Oncbh0UmHjSlxO7ErQDM3KM0A5/Znfofj2BSzlHLeVw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0b4defa2584313f3b781240b29d61f6f9f7e0df3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     }
   },

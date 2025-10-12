@@ -46,4 +46,26 @@
       nvidiaBusId = "PCI:1:0:0";
     };
   };
+
+  services.udev.extraRules = let
+    pciPath = busId: let
+      components = lib.drop 1 (lib.splitString ":" busId);
+      toHex = i: lib.toLower (lib.toHexString (lib.toInt i));
+
+      bus = lib.fixedWidthString 2 "0" (toHex (builtins.elemAt components 0));
+      device = lib.fixedWidthString 2 "0" (toHex (builtins.elemAt components 1));
+      function = builtins.elemAt components 2; # The function is supposedly a decimal number
+    in "${bus}:${device}.${function}";
+
+    pCfg = config.hardware.nvidia.prime;
+    igpuId = pciPath (
+      if pCfg.intelBusId != ""
+      then pCfg.intelBusId
+      else pCfg.amdgpuBusId
+    );
+    dgpuId = pciPath pCfg.nvidiaBusId;
+  in ''
+    KERNEL=="card*", KERNELS=="0000:${igpuId}", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/igpu1"
+    KERNEL=="card*", KERNELS=="0000:${dgpuId}", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/dgpu1"
+  '';
 }
