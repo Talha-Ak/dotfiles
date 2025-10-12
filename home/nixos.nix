@@ -46,7 +46,7 @@ in {
   programs.chromium = {
     enable = true;
     package = pkgs.google-chrome;
-    commandLineArgs = ["--enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL,AcceleratedVideoEncoder"];
+    commandLineArgs = ["--enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL,AcceleratedVideoEncoder,TouchpadOverscrollHistoryNavigation"];
   };
 
   xdg.configFile = pkgs.lib.mkMerge [
