@@ -103,6 +103,18 @@
     pulse.enable = true;
   };
 
+  services.tailscale.enable = true;
+
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --remember-session --asterisks";
+        user = "greeter";
+      };
+    };
+  };
+
   #========== USER ==========
 
   users.users.talha = {
@@ -111,22 +123,16 @@
     extraGroups = ["networkmanager" "wheel"];
   };
 
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
   programs.hyprland = {
     enable = true;
     withUWSM = true;
   };
-  # programs.hyprlock.enable = true;
 
   programs.steam = {
     enable = true;
     localNetworkGameTransfers.openFirewall = true;
     remotePlay.openFirewall = true;
   };
-
-  services.tailscale.enable = true;
 
   environment.systemPackages = [
     pkgs.kitty
