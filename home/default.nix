@@ -11,8 +11,9 @@
       ls = "ls --color=auto";
       ll = "ls -lh --color=auto";
       la = "ls -lAh --color=auto";
+
       nfu = "nix flake update --flake ~/nix";
-      hrb = "home-manager switch --flake ~/nix";
+      hrb = "nh home switch";
     };
 
     packages = with pkgs; [

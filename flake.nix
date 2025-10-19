@@ -8,8 +8,7 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    dankMaterialShell = {
-      # url = "github:AvengeMedia/DankMaterialShell?ref=3fb5d5c4f3143b4f41632302f7158fc8a85367bf";
+    dms = {
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "unstable";
     };

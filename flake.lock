@@ -1,32 +1,9 @@
 {
   "nodes": {
-    "dankMaterialShell": {
-      "inputs": {
-        "dgop": "dgop",
-        "dms-cli": "dms-cli",
-        "nixpkgs": [
-          "unstable"
-        ],
-        "quickshell": "quickshell"
-      },
-      "locked": {
-        "lastModified": 1760245690,
-        "narHash": "sha256-sFENMIZTgLOMyXoFiL9FFY4sZt0HaGYIAcxe5BHOrJ0=",
-        "owner": "AvengeMedia",
-        "repo": "DankMaterialShell",
-        "rev": "a17343f40e2c2788d775aef08e55f73ce6e20ae2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "AvengeMedia",
-        "repo": "DankMaterialShell",
-        "type": "github"
-      }
-    },
     "dgop": {
       "inputs": {
         "nixpkgs": [
-          "dankMaterialShell",
+          "dms",
           "nixpkgs"
         ]
       },
@@ -44,10 +21,33 @@
         "type": "github"
       }
     },
+    "dms": {
+      "inputs": {
+        "dgop": "dgop",
+        "dms-cli": "dms-cli",
+        "nixpkgs": [
+          "unstable"
+        ],
+        "quickshell": "quickshell"
+      },
+      "locked": {
+        "lastModified": 1760754287,
+        "narHash": "sha256-g5tWzWheTOGHxtWECmVh7m5Lgk1w9wtfKBZKlQUEkaI=",
+        "owner": "AvengeMedia",
+        "repo": "DankMaterialShell",
+        "rev": "7c1e247ef820139445d03131254838401e2d76d0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AvengeMedia",
+        "repo": "DankMaterialShell",
+        "type": "github"
+      }
+    },
     "dms-cli": {
       "inputs": {
         "nixpkgs": [
-          "dankMaterialShell",
+          "dms",
           "nixpkgs"
         ]
       },
@@ -105,7 +105,7 @@
     "quickshell": {
       "inputs": {
         "nixpkgs": [
-          "dankMaterialShell",
+          "dms",
           "nixpkgs"
         ]
       },
@@ -145,7 +145,7 @@
     },
     "root": {
       "inputs": {
-        "dankMaterialShell": "dankMaterialShell",
+        "dms": "dms",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "quickshell": "quickshell_2",

@@ -12,9 +12,11 @@
 
   nix.optimise.automatic = true;
 
-  nix.gc = {
-    automatic = true;
-    options = "--delete-older-than 7d";
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 7d --keep 2";
+    flake = "/home/talha/nix";
   };
 
   nixpkgs.config.allowUnfree = true;

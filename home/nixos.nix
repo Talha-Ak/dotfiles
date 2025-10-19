@@ -15,12 +15,12 @@ in {
     ./default.nix
     # TODO: Remove when qs is in nixpkgs stable
     ./quickshell-jank.nix
-    inputs.dankMaterialShell.homeModules.dankMaterialShell.default
+    inputs.dms.homeModules.dankMaterialShell.default
   ];
 
   nixpkgs.config.allowUnfree = true;
 
-  home.shellAliases.srb = "sudo nixos-rebuild switch --flake ~/nix";
+  home.shellAliases.srb = "nh os switch";
 
   home.packages = [
     # Apps
@@ -43,8 +43,8 @@ in {
     enable = true;
     quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
     default.session = {
-      wallpaperPath = "/home/talha/nix/wall/wallhaven-2keqwx.png";
-      wallpaperLastPath = "/home/talha/nix/wall";
+      wallpaperPath = "~/nix/wall/wallhaven-2keqwx.png";
+      wallpaperLastPath = "~/nix/wall";
       isLightMode = false;
       launchPrefix = "uwsm-app";
     };
