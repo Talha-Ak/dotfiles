@@ -1,4 +1,15 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: let
+  mkSymlinkedConfig = name: {
+    "${name}" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix/dots/.config/${name}/";
+      recursive = true;
+    };
+  };
+in {
   imports = [
     ./nvim
   ];
@@ -41,6 +52,15 @@
     enableBashIntegration = true;
     nix-direnv.enable = true;
   };
+
+  programs.yazi = {
+    enable = true;
+    enableBashIntegration = true;
+  };
+
+  xdg.configFile = pkgs.lib.mkMerge [
+    (mkSymlinkedConfig "yazi")
+  ];
 
   programs.home-manager.enable = true;
 
