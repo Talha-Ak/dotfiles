@@ -24,7 +24,7 @@
 
   # Add iGPU only plasma session to display manager.
   dots.igpuPlasmaSession = {
-    enable = true;
+    enable = false;
     igpuDevice = "/dev/dri/card2";
   };
 
