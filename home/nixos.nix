@@ -22,6 +22,14 @@ in {
 
   home.shellAliases.srb = "nh os switch";
 
+  home.pointerCursor = {
+    gtk.enable = true;
+    hyprcursor.enable = true;
+    package = pkgs.bibata-cursors;
+    size = 18;
+    name = "Bibata-Modern-Ice";
+  };
+
   home.packages = [
     # Apps
     pkgs.discord
