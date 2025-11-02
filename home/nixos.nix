@@ -16,6 +16,7 @@ in {
     # TODO: Remove when qs is in nixpkgs stable
     ./quickshell-jank.nix
     inputs.dms.homeModules.dankMaterialShell.default
+    inputs.catppuccin.homeModules.catppuccin
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -46,6 +47,26 @@ in {
   ];
 
   services.dunst.enable = true;
+
+  catppuccin.gtk.icon.enable = true;
+  gtk = {
+    enable = true;
+    theme = {
+      name = "catppuccin-mocha-blue-standard";
+      package = pkgs.catppuccin-gtk.override {
+        accents = ["blue"];
+        size = "standard";
+        variant = "mocha";
+      };
+    };
+
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
+  };
 
   programs.dankMaterialShell = {
     enable = true;
