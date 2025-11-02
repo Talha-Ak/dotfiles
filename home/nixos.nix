@@ -17,6 +17,7 @@ in {
     ./quickshell-jank.nix
     inputs.dms.homeModules.dankMaterialShell.default
     inputs.catppuccin.homeModules.catppuccin
+    inputs.vicinae.homeManagerModules.default
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -47,6 +48,11 @@ in {
   ];
 
   services.dunst.enable = true;
+
+  services.vicinae = {
+    enable = true;
+    autoStart = true;
+  };
 
   catppuccin.gtk.icon.enable = true;
   gtk = {

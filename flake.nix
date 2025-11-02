@@ -5,6 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     catppuccin.url = "github:catppuccin/nix/release-25.05";
+    vicinae.url = "github:vicinaehq/vicinae";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
