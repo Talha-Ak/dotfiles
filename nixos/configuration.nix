@@ -84,6 +84,9 @@
 
   #========== SERVICES ==========
 
+  services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
+
   # Auto-discover network printers
   services.avahi = {
     enable = true;
