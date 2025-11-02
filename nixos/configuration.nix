@@ -30,12 +30,14 @@
   };
 
   # Silent boot.
-  # boot.initrd.verbose = false;
-  # boot.consoleLogLevel = 0;
-  # boot.kernelParams = [
-  #   "quiet"
-  #   "udev.log_level=3"
-  # ];
+  boot.plymouth.enable = true;
+  boot.plymouth.extraConfig = "DeviceScale=1";
+  boot.initrd.verbose = false;
+  boot.consoleLogLevel = 3;
+  boot.kernelParams = [
+    "quiet"
+    "udev.log_level=3"
+  ];
 
   #========== HARDWARE ==========
 
@@ -113,6 +115,16 @@
         user = "greeter";
       };
     };
+  };
+
+  systemd.services.greetd.serviceConfig = {
+    Type = "idle";
+    StandardInput = "tty";
+    StandardOutput = "tty";
+    StandardError = "journal";
+    TTYReset = true;
+    TTYHangup = true;
+    TTYVTDisallocate = true;
   };
 
   #========== USER ==========
