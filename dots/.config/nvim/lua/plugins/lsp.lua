@@ -10,6 +10,7 @@ local servers = {
     "nil_ls",
     "qmlls",
     "texlab",
+    "ts_ls",
   },
 }
 
@@ -21,6 +22,7 @@ local formatters = {
   manual = {
     nix = { "alejandra" },
     python = { "black", "isort" },
+    typescript = { "prettier" },
   },
 }
 
@@ -187,7 +189,7 @@ return {
           -- have a well standardized coding style.
           local disable_filetypes = { c = true, cpp = true }
           return {
-            timeout_ms = 500,
+            timeout_ms = 2500,
             lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
           }
         end,

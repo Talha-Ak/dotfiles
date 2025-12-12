@@ -31,6 +31,10 @@
       # nix
       nil
       alejandra
+
+      # typescript
+      typescript
+      typescript-language-server
     ];
 
     defaultEditor = true;
