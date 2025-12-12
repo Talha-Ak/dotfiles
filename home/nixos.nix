@@ -21,6 +21,7 @@ in {
   ];
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.android_sdk.accept_license = true;
 
   home.shellAliases.srb = "nh os switch";
 
@@ -34,10 +35,13 @@ in {
 
   home.packages = [
     # Apps
-    pkgs.discord
+    pkgs.vesktop
     pkgs.foot
     pkgs.bitwarden-desktop
     pkgs.spotify
+    pkgs.nautilus
+    pkgs.teams-for-linux
+    pkgs.android-studio
 
     # Tools
     pkgs.dell-command-configure
@@ -89,6 +93,11 @@ in {
     enable = true;
     package = pkgs.google-chrome;
     commandLineArgs = ["--enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL,AcceleratedVideoEncoder,TouchpadOverscrollHistoryNavigation"];
+  };
+
+  programs.thunderbird = {
+    enable = true;
+    profiles.talha.isDefault = true;
   };
 
   xdg.configFile = pkgs.lib.mkMerge [

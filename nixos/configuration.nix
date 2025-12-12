@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ./nvidia.nix
@@ -78,11 +82,13 @@
     options = "caps:escape";
   };
 
-  time.timeZone = "Europe/London";
+  time.timeZone = lib.mkDefault "Europe/London";
 
   i18n.defaultLocale = "en_GB.UTF-8";
 
   #========== SERVICES ==========
+
+  virtualisation.docker.enable = true;
 
   services.upower.enable = true;
   services.power-profiles-daemon.enable = true;
@@ -110,6 +116,8 @@
 
   services.tailscale.enable = true;
 
+  services.flatpak.enable = true;
+
   services.greetd = {
     enable = true;
     settings = {
@@ -135,7 +143,14 @@
   users.users.talha = {
     isNormalUser = true;
     description = "Talha Abdulkuddus";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "docker" "adbusers"];
+  };
+
+  programs.nix-ld = {
+    enable = true;
+    libraries = [
+      pkgs.stdenv.cc.cc
+    ];
   };
 
   programs.hyprland = {
@@ -148,6 +163,8 @@
     localNetworkGameTransfers.openFirewall = true;
     remotePlay.openFirewall = true;
   };
+
+  programs.adb.enable = true;
 
   environment.systemPackages = [
     pkgs.kitty
