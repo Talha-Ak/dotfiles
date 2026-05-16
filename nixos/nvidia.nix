@@ -2,12 +2,20 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   # Enable hardware accelerated graphics.
   hardware.graphics.enable = true;
 
   services.xserver.videoDrivers = ["nvidia"];
+
+  # TODO: Move to gsr-ui once merged
+  # https://github.com/NixOS/nixpkgs/pull/519117
+  programs.gpu-screen-recorder.enable = true;
+  environment.systemPackages = [
+    pkgs.gpu-screen-recorder-gtk
+  ];
 
   hardware.nvidia = {
     modesetting.enable = true;
