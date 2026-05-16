@@ -7,12 +7,13 @@
     ./hardware-configuration.nix
     ./nvidia.nix
     ./laptop.nix
-    ./vfio
+    # ./vfio
   ];
 
   #========== NIX CONFIG ==========
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.trusted-users = ["talha"];
 
   nix.optimise.automatic = true;
 
