@@ -46,6 +46,10 @@ in {
     pkgs.satty
   ];
 
+  home.sessionVariables = {
+    SSH_AUTH_SOCK = "/home/talha/.bitwarden-ssh-agent.sock";
+  };
+
   catppuccin.gtk.icon.enable = true;
   gtk = {
     enable = true;
