@@ -43,8 +43,8 @@ in {
 
   programs.git = {
     enable = true;
-    userName = "Talha Abdulkuddus";
-    userEmail = "git@talhaak.com";
+    settings.user.name = "Talha Abdulkuddus";
+    settings.user.email = "git@talhaak.com";
   };
 
   programs.direnv = {
