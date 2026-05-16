@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-unstable,
   config,
   inputs,
   ...
@@ -13,11 +14,8 @@
 in {
   imports = [
     ./default.nix
-    # TODO: Remove when qs is in nixpkgs stable
-    ./quickshell-jank.nix
-    inputs.dms.homeModules.dankMaterialShell.default
+    inputs.dms.homeModules.dank-material-shell
     inputs.catppuccin.homeModules.catppuccin
-    inputs.vicinae.homeManagerModules.default
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -35,28 +33,18 @@ in {
 
   home.packages = [
     # Apps
+    pkgs-unstable.discord
     pkgs.vesktop
     pkgs.foot
     pkgs.bitwarden-desktop
     pkgs.spotify
     pkgs.nautilus
     pkgs.teams-for-linux
-    pkgs.android-studio
 
-    # Tools
-    pkgs.dell-command-configure
-    pkgs.rofi-wayland
     pkgs.grim
     pkgs.slurp
     pkgs.satty
   ];
-
-  services.dunst.enable = true;
-
-  services.vicinae = {
-    enable = true;
-    autoStart = true;
-  };
 
   catppuccin.gtk.icon.enable = true;
   gtk = {
@@ -78,14 +66,36 @@ in {
     };
   };
 
-  programs.dankMaterialShell = {
+  programs.dank-material-shell = {
     enable = true;
-    quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
-    default.session = {
-      wallpaperPath = "~/nix/wall/wallhaven-2keqwx.png";
-      wallpaperLastPath = "~/nix/wall";
-      isLightMode = false;
+    systemd.enable = true;
+    dgop.package = pkgs-unstable.dgop;
+
+    settings = {
+      currentThemeName = "dynamic";
+      currentThemeCategory = "dynamic";
+
+      popupTransparency = 0.9;
+
+      runDmsMatugenTemplates = false;
+
+      launcherLogoMode = "os";
+      launcherLogoColorOverride = "primary";
+
+      fontFamily = "CaskaydiaCove NF";
+      monoFontFamily = "CaskaydiaCove Nerd Font Mono";
+
       launchPrefix = "uwsm-app";
+
+      animationSpeed = 4;
+      customAnimationDuration = 200;
+
+      useAutoLocation = true;
+    };
+
+    session = {
+      isLightMode = false;
+      wallpaperPath = "/home/talha/nix/wall/wallhaven-2keqwx.png";
     };
   };
 
@@ -104,7 +114,5 @@ in {
     (mkSymlinkedConfig "foot")
     (mkSymlinkedConfig "hypr")
     (mkSymlinkedConfig "uwsm")
-    (mkSymlinkedConfig "dunst/dunstrc.d")
-    (mkSymlinkedConfig "rofi")
   ];
 }

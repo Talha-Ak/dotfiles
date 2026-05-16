@@ -2,27 +2,26 @@
   description = "Nix Configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    catppuccin.url = "github:catppuccin/nix/release-25.05";
-    vicinae.url = "github:vicinaehq/vicinae";
+
+    catppuccin.url = "github:catppuccin/nix/release-25.11";
+
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     dms = {
-      url = "github:AvengeMedia/DankMaterialShell";
-      inputs.nixpkgs.follows = "unstable";
-    };
-    quickshell = {
-      url = "git+https://git.outfoxxed.me/quickshell/quickshell";
-      inputs.nixpkgs.follows = "unstable";
+      url = "github:AvengeMedia/DankMaterialShell/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs = {
     self,
     nixpkgs,
+    unstable,
     home-manager,
     ...
   } @ inputs: let
@@ -38,7 +37,13 @@
     homeConfigurations = {
       "talha@caelid" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        extraSpecialArgs = {inherit inputs;};
+        extraSpecialArgs = {
+          inherit inputs;
+          pkgs-unstable = import unstable {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        };
         modules = [./home/nixos.nix];
       };
       "talha@limgrave" = home-manager.lib.homeManagerConfiguration {
