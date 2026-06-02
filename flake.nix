@@ -1,56 +1,23 @@
 {
-  description = "Nix Configuration";
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixOS/nixpkgs/nixos-25.11";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    catppuccin.url = "github:catppuccin/nix/release-25.11";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:vic/import-tree";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     dms = {
       url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    catppuccin.url = "github:catppuccin/nix/release-25.11";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    unstable,
-    home-manager,
-    ...
-  } @ inputs: let
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
-  in {
-    nixosConfigurations.caelid = nixpkgs.lib.nixosSystem {
-      modules = [
-        ./nixos/configuration.nix
-      ];
-    };
-
-    homeConfigurations = {
-      "talha@caelid" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = {
-          inherit inputs;
-          pkgs-unstable = import unstable {
-            inherit system;
-            config.allowUnfree = true;
-          };
-        };
-        modules = [./home/nixos.nix];
-      };
-      "talha@limgrave" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = {inherit inputs;};
-        modules = [./home/wsl.nix];
-      };
-    };
-  };
+  outputs =
+    inputs@{ flake-parts, import-tree, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } (import-tree ./modules);
 }

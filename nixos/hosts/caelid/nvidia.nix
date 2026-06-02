@@ -62,7 +62,7 @@
 
       bus = lib.fixedWidthString 2 "0" (toHex (builtins.elemAt components 0));
       device = lib.fixedWidthString 2 "0" (toHex (builtins.elemAt components 1));
-      function = builtins.elemAt components 2; # The function is supposedly a decimal number
+      function = builtins.elemAt components 2;
     in "${bus}:${device}.${function}";
 
     pCfg = config.hardware.nvidia.prime;

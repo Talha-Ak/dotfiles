@@ -30,7 +30,7 @@
 
       # nix
       nil
-      alejandra
+      nixfmt
 
       # typescript
       typescript

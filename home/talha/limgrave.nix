@@ -1,6 +1,7 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   imports = [
-    ./default.nix
+    ../modules/default.nix
   ];
 
   programs.nh = {

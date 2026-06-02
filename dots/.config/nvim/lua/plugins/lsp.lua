@@ -20,7 +20,7 @@ local formatters = {
   },
 
   manual = {
-    nix = { "alejandra" },
+    -- nix = { "nixfmt" },
     python = { "black", "isort" },
     typescript = { "prettier" },
   },

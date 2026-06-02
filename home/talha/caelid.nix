@@ -4,16 +4,18 @@
   config,
   inputs,
   ...
-}: let
+}:
+let
   mkSymlinkedConfig = name: {
     "${name}" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix/dots/.config/${name}/";
       recursive = true;
     };
   };
-in {
+in
+{
   imports = [
-    ./default.nix
+    ../modules/default.nix
     inputs.dms.homeModules.dank-material-shell
     inputs.catppuccin.homeModules.catppuccin
   ];
@@ -56,7 +58,7 @@ in {
     theme = {
       name = "catppuccin-mocha-blue-standard";
       package = pkgs.catppuccin-gtk.override {
-        accents = ["blue"];
+        accents = [ "blue" ];
         size = "standard";
         variant = "mocha";
       };
@@ -106,7 +108,9 @@ in {
   programs.chromium = {
     enable = true;
     package = pkgs.google-chrome;
-    commandLineArgs = ["--enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL,AcceleratedVideoEncoder,TouchpadOverscrollHistoryNavigation"];
+    commandLineArgs = [
+      "--enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL,AcceleratedVideoEncoder,TouchpadOverscrollHistoryNavigation"
+    ];
   };
 
   programs.thunderbird = {
