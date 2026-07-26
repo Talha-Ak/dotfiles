@@ -1,6 +1,10 @@
 { self, inputs, ... }:
 let
-  unstable = inputs.unstable.legacyPackages.x86_64-linux;
+  system = "x86_64-linux";
+  unstable = import inputs.unstable {
+    inherit system;
+    config.allowUnfree = true;
+  };
 in
 {
   flake.modules.homeManager.desktop-apps =
